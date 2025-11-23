@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>ICS 阶段测验1 部分题目解析 - lowAltitudeFlyer&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="lowAltitudeFlyer&#039;s blog"><meta name="msapplication-TileImage" content="/img/37.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="lowAltitudeFlyer&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="是谁上了大学还要月考啊😡 15. x86-64 中，执行 popq %rbx 的操作依次为如下步骤： (1) 从寄存器 %rsp 中读出数据 x，以 x 为地址，读出对应内存中的数据 y； (2) 将 (1) 中提到的寄存器（加减多少）： 加 8 ； (3) 将 y 存到寄存器 %rbx 中。 解析：pushq 和 popq 可以将数据压入程序栈中，以及从程序栈中弹出数据。栈向下增长，即栈顶元素"><meta property="og:type" content="blog"><meta property="og:title" content="ICS 阶段测验1 部分题目解析"><meta property="og:url" content="http://lowaltitudeflyer.github.io/2025/11/23/ICS-%E9%98%B6%E6%AE%B5%E6%B5%8B%E9%AA%8C1-%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90/"><meta property="og:site_name" content="lowAltitudeFlyer&#039;s blog"><meta property="og:description" content="是谁上了大学还要月考啊😡 15. x86-64 中，执行 popq %rbx 的操作依次为如下步骤： (1) 从寄存器 %rsp 中读出数据 x，以 x 为地址，读出对应内存中的数据 y； (2) 将 (1) 中提到的寄存器（加减多少）： 加 8 ； (3) 将 y 存到寄存器 %rbx 中。 解析：pushq 和 popq 可以将数据压入程序栈中，以及从程序栈中弹出数据。栈向下增长，即栈顶元素"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://lowaltitudeflyer.github.io/img/og_image.png"><meta property="article:published_time" content="2025-11-23T03:42:16.000Z"><meta property="article:modified_time" content="2025-11-23T03:50:59.010Z"><meta property="article:author" content="Qi Youyang"><meta property="article:tag" content="回课"><meta property="article:tag" content="阶段测验"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://lowaltitudeflyer.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://lowaltitudeflyer.github.io/2025/11/23/ICS-%E9%98%B6%E6%AE%B5%E6%B5%8B%E9%AA%8C1-%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90/"},"headline":"ICS 阶段测验1 部分题目解析","image":["http://lowaltitudeflyer.github.io/img/og_image.png"],"datePublished":"2025-11-23T03:42:16.000Z","dateModified":"2025-11-23T03:50:59.010Z","author":{"@type":"Person","name":"Qi Youyang"},"publisher":{"@type":"Organization","name":"lowAltitudeFlyer's blog","logo":{"@type":"ImageObject","url":"http://lowaltitudeflyer.github.io/img/37.png"}},"description":"是谁上了大学还要月考啊😡 15. x86-64 中，执行 popq %rbx 的操作依次为如下步骤： (1) 从寄存器 %rsp 中读出数据 x，以 x 为地址，读出对应内存中的数据 y； (2) 将 (1) 中提到的寄存器（加减多少）： 加 8 ； (3) 将 y 存到寄存器 %rbx 中。 解析：pushq 和 popq 可以将数据压入程序栈中，以及从程序栈中弹出数据。栈向下增长，即栈顶元素"}</script><link rel="canonical" href="http://lowaltitudeflyer.github.io/2025/11/23/ICS-%E9%98%B6%E6%AE%B5%E6%B5%8B%E9%AA%8C1-%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90/"><link rel="icon" href="/img/37.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/37.png" alt="lowAltitudeFlyer&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/lowAltitudeFlyer/lowAltitudeFlyer.github.io"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-11-23T03:42:16.000Z" title="2025/11/23 11:42:16">2025年11月23日</time>发表</span><span class="level-item"><time dateTime="2025-11-23T03:50:59.010Z" title="2025/11/23 11:50:59">2025年11月23日</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/ICS/">ICS</a></span><span class="level-item">8 分钟读完 (大约1163个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">ICS 阶段测验1 部分题目解析</h1><div class="content"><p><s>是谁上了大学还要月考啊😡</s></p>
+<p><strong>15.</strong> x86-64 中，执行 <code>popq %rbx</code> 的操作依次为如下步骤：<br>
+<strong>(1)</strong> 从寄存器<u> <code>%rsp</code> </u>中读出数据 <code>x</code>，以 <code>x</code> 为地址，读出对应内存中的数据 <code>y</code>；<br>
+<strong>(2)</strong> 将 (1) 中提到的寄存器（加减多少）：<u> 加 <code>8</code> </u>；<br>
+<strong>(3)</strong> 将 <code>y</code> 存到寄存器<u> <code>%rbx</code> </u>中。<br>
+<strong>解析</strong>：<code>pushq</code> 和 <code>popq</code> 可以将数据压入程序栈中，以及从程序栈中弹出数据。栈向下增长，即栈顶元素的地址最低。栈指针 <code>%rsp</code> 保存着栈顶元素的地址。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>效果</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pushq S</code></td>
+<td><code>R[%rsp]←R[%rsp]-8;</code><br><code>M[R[%rsp]]←S</code></td>
+<td>将四字压入栈</td>
+</tr>
+<tr>
+<td><code>popq D</code></td>
+<td><code>D←M[R[%rsp]];</code><br><code>R[%rsp]←R[%rsp]+8</code></td>
+<td>将四字弹出栈</td>
+</tr>
+</tbody>
+</table>
+<p><strong>16.</strong> 以下两组对应的 C 语言代码和汇编语言代码:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">multstore</span><span class="params">(<span class="type">long</span> x, <span class="type">long</span> y, <span class="type">long</span> *dest)</span> &#123;</span><br><span class="line">    <span class="type">long</span> t = mult2(x, y);</span><br><span class="line">    *dest = t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">0000000000400640 &lt;multstore&gt;:</span><br><span class="line">  400640: push  %rbx</span><br><span class="line">  400641: mov   %rdx, %rbx</span><br><span class="line">  400644: callq 400650 &lt;mult2&gt;</span><br><span class="line">  400649: mov   %rax, (%rbx)</span><br><span class="line">  40064c: pop   %rbx</span><br><span class="line">  40064d: retq</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span> <span class="title function_">mult2</span><span class="params">(<span class="type">long</span> a, <span class="type">long</span> b)</span> &#123;</span><br><span class="line">    <span class="type">long</span> s = a * b;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0000000000400650 &lt;mult2&gt;:</span><br><span class="line">  400650: mov  %rdi, %rax</span><br><span class="line">  400653: imul %rsi, %rax</span><br><span class="line">  400657: retq</span><br></pre></td></tr></table></figure>
+<p><strong>(1)</strong> 假设准备执行 <code>callq</code> 指令时，<code>%rsp</code> 内容为 <code>0x110</code>，那执行完 <code>callq</code> 指令后， <code>%rsp</code> 内容为<u> <code>0x108</code> </u>，<code>%rsp</code> 指向的内存中的数值为<u> <code>0x400649</code> </u>。随后执行完地址 <code>400657</code> 处的 <code>retq</code> 指令后，<code>%rsp</code> 内容为<u> <code>0x110</code> </u>。（均为十六进制）<br>
+<strong>解析</strong>：在 x86-64 机器中，指令 <code>call Q</code> 会把地址 <code>A</code> 压入栈中，并将 <code>PC</code> 设置为 <code>Q</code> 的起始地址。压入的地址 <code>A</code> 被称为返回地址，是紧跟在 <code>call</code> 指令后面的那条指令的地址。对应的指令<code>ret</code> 会从栈中弹出地址 <code>A</code>，并把 <code>PC</code> 设置为 <code>A</code>。</p>
+<p><strong>(2)</strong> C 代码中的下列变量分别保存在哪个寄存器中：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>寄存器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>%rdi</td>
+</tr>
+<tr>
+<td>y</td>
+<td>%rsi</td>
+</tr>
+<tr>
+<td>a</td>
+<td>%rdi</td>
+</tr>
+<tr>
+<td>b</td>
+<td>%rsi</td>
+</tr>
+<tr>
+<td>s</td>
+<td>%rax</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解析</strong>：<code>multstore</code> 中，<code>x</code> 为第一个参数，<code>y</code> 为第二个参数，分别存放在 <code>%rdi</code> 和 <code>%rsi</code> 中。<br>
+<code>mult2</code> 中，<code>a</code> 为第一个参数，<code>b</code> 为第二个参数，<code>s</code> 为返回值，分别存放在 <code>%rdi</code>、<code>%rsi</code> 和 <code>%rax</code> 中。</p>
+<p><strong>(3)</strong> 汇编代码中，地址 <code>400641</code> 的指令修改了 <code>%rbx</code>，地址 <code>400649</code> 的指令使用了 <code>%rbx</code>，而二者中间有过程调用 <code>call</code>，是什么机制保证了 <code>%rbx</code> 不会被修改：<br>
+<strong>答案</strong>：根据惯例，寄存器 <code>%rbx</code>、<code>%rbp</code> 和 <code>%r12</code>~<code>%r15</code> 被划分为被调用者保存寄存器。当过程 <code>P</code> 调用过程 <code>Q</code> 时，<code>Q</code> 必须保存这些寄存器的值，保证它们的值在 <code>Q</code> 返回到 <code>P</code> 时与 <code>Q</code> 被调用时是一样的（要么就是根本不去改变它，要么就是把原始值压入栈中，改变寄存器的值，然后在返回前从栈中弹出旧值）。压入寄存器的值会在栈帧中创建标号为“保存的寄存器”的一部分。有了这条惯例，<code>P</code> 的代码就能安全地把值存在被调用者保存寄存器中（当然，要先把之前的值保存到栈上），调用 <code>Q</code>，然后继续使用寄存器中的值，不用担心值被破坏。</p>
+<p><strong>(4)</strong> 如果把 C 代码中的 <code>mult2(x,y)</code> 改为 <code>mult2(y,x)</code>，汇编代码会有什么变化：<br>
+<strong>答案</strong>：在执行 <code>callq</code> 指令之前，先交换 <code>%rdi</code> 和 <code>%rsi</code> 的值。下面这段汇编代码可以实现这一功能。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov %rdi, %rax</span><br><span class="line">mov %rsi, %rdi</span><br><span class="line">mov %rax, %rsi</span><br></pre></td></tr></table></figure>
+<p><strong>17.</strong> 考虑以下 C 语言代码:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span> <span class="title function_">bit_not1</span><span class="params">(<span class="type">long</span> a)</span> &#123;</span><br><span class="line">    <span class="type">long</span> x = ~p;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">long</span> <span class="title function_">bit_not2</span><span class="params">(<span class="type">long</span> *p)</span> &#123;</span><br><span class="line">    <span class="type">long</span> x = *p;</span><br><span class="line">    <span class="type">long</span> y = ~x;</span><br><span class="line">    <span class="keyword">return</span> y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">long</span> <span class="title function_">call_bitnot</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">long</span> v0 = <span class="number">1010</span>;</span><br><span class="line">    <span class="type">long</span> v1 = <span class="number">1010</span>;</span><br><span class="line">    <span class="type">long</span> v2 = bit_not1(v0);</span><br><span class="line">    <span class="type">long</span> v3 = bit_not2(&amp;v1);</span><br><span class="line">    <span class="keyword">return</span> v2 + v3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下列变量分别存放在寄存器还是内存中?</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>存放位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v0</td>
+<td>寄存器</td>
+</tr>
+<tr>
+<td>v1</td>
+<td>内存</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>寄存器</td>
+</tr>
+<tr>
+<td>v3</td>
+<td>寄存器</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解析</strong>：局部数据默认存放在寄存器中，不过有些时候，局部数据必须存放在内存中，常见的情况包括∶</p>
+<ul>
+<li>寄存器不足够存放所有的本地数据。</li>
+<li>对一个局部变量使用地址运算符 <code>&amp;</code>，因此必须能够为它产生一个地址。</li>
+<li>某些局部变量是数组或结构，因此必须能够通过数组或结构引用被访问到。</li>
+</ul>
+<p>由于代码中出现了 <code>&amp;v1</code>，所以 <code>v1</code> 必须存放在内存中，而 <code>v0</code>、<code>v2</code> 和 <code>v3</code> 则存放在寄存器中。</p>
+<blockquote>
+<p>不过话又说回来，这阶段测验 1 确实不难。</p>
+</blockquote>
+</div><div class="article-licensing box"><div class="licensing-title"><p>ICS 阶段测验1 部分题目解析</p><p><a href="http://lowaltitudeflyer.github.io/2025/11/23/ICS-阶段测验1-部分题目解析/">http://lowaltitudeflyer.github.io/2025/11/23/ICS-阶段测验1-部分题目解析/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Qi Youyang</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2025年11月23日</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2025年11月23日</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%9B%9E%E8%AF%BE/">回课</a><a class="link-muted mr-2" rel="tag" href="/tags/%E9%98%B6%E6%AE%B5%E6%B5%8B%E9%AA%8C/">阶段测验</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/"><span class="level-item">ICS 第5章 优化程序性能</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="waline-thread"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client@2.6.3/dist/waline.css"><script src="https://cdn.jsdelivr.net/npm/@waline/client@2.6.3/dist/waline.js"></script><script>Waline.init({
+            el: '#waline-thread',
+            serverURL: "https://waline-server-nu-three.vercel.app",
+            path: window.location.pathname,
+            lang: "zh-CN",
+            
+            emoji: ["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],
+            
+            meta: ["nick","mail","link"],
+            requiredMeta: [],
+            login: "enable",
+            
+            pageSize: 10,
+            imageUploader: false,
+            highlighter: false,
+            texRenderer: false,
+            search: false,
+            pageview: true,
+            comment: false,
+            copyright: true,
+        });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/37.png" alt="lowAltitudeFlyer"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">lowAltitudeFlyer</p><p class="is-size-6 is-block">qwq</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>PKU</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">6</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">7</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/lowAltitudeFlyer" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/lowAltitudeFlyer"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://chexie.net/#main" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">北京大学自行车协会 CAPU</span></span><span class="level-right"><span class="level-item tag">chexie.net</span></span></a></li><li><a class="level is-mobile" href="https://semantle.pimanrul.es" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Pimantle</span></span><span class="level-right"><span class="level-item tag">semantle.pimanrul.es</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/ICS/"><span class="level-start"><span class="level-item">ICS</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%9C%80%E5%88%9D%E7%9A%84%E6%9C%80%E5%88%9D/"><span class="level-start"><span class="level-item">最初的最初</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%AA%91%E8%A1%8C/"><span class="level-start"><span class="level-item">骑行</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-11-23T03:42:16.000Z">2025年11月23日</time></p><p class="title"><a href="/2025/11/23/ICS-%E9%98%B6%E6%AE%B5%E6%B5%8B%E9%AA%8C1-%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90/">ICS 阶段测验1 部分题目解析</a></p><p class="categories"><a href="/categories/ICS/">ICS</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-11-23T03:25:07.000Z">2025年11月23日</time></p><p class="title"><a href="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/">ICS 第5章 优化程序性能</a></p><p class="categories"><a href="/categories/ICS/">ICS</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-11-23T03:20:27.000Z">2025年11月23日</time></p><p class="title"><a href="/2025/11/23/%E6%9A%91%E6%9C%9FDLC%E8%AE%B0%E5%BF%86/">暑期DLC记忆</a></p><p class="categories"><a href="/categories/%E9%AA%91%E8%A1%8C/">骑行</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-11-23T03:13:13.000Z">2025年11月23日</time></p><p class="title"><a href="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">ICS 第9章 虚拟内存</a></p><p class="categories"><a href="/categories/ICS/">ICS</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-11-22T15:18:53.000Z">2025年11月22日</time></p><p class="title"><a href="/2025/11/22/%E5%85%B3%E4%BA%8E%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2/">关于这个博客</a></p><p class="categories"><a href="/categories/%E6%9C%80%E5%88%9D%E7%9A%84%E6%9C%80%E5%88%9D/">最初的最初</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2025/11/"><span class="level-start"><span class="level-item">十一月 2025</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/qwq/"><span class="tag">qwq</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%9B%9E%E8%AF%BE/"><span class="tag">回课</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A4%8F/"><span class="tag">夏</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AC%94%E8%AE%B0/"><span class="tag">笔记</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%95%BF%E9%80%94/"><span class="tag">长途</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%98%B6%E6%AE%B5%E6%B5%8B%E9%AA%8C/"><span class="tag">阶段测验</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9D%92%E6%B5%B7%E6%B9%96/"><span class="tag">青海湖</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/37.png" alt="lowAltitudeFlyer&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2025 Qi Youyang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/mhchem.min.js" defer></script><script>window.addEventListener("load", function() {
+            document.querySelectorAll('[role="article"] > .content').forEach(function(element) {
+                renderMathInElement(element);
+            });
+        });</script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo injector body_end start -->
+  <style>
+    .article .content code,
+    .article-entry code,
+    .content code,
+    code:not(pre code) {
+        color: #000000ff !important;
+        background-color: #f0f0f0ff !important;
+        border: none !important;
+        font-size: 0.9em !important;
+        padding: 2px 4px !important;
+        border-radius: 4px !important;
+        font-family: Consolas, Monaco, monospace !important;
+    }
+  </style>
+<!-- hexo injector body_end end --></body></html>
