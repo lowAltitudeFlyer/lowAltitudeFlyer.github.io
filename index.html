@@ -187,7 +187,7 @@ k_{ij} (\left\| \mathbf{x}_j − \mathbf{x}_i \right\| − l_{ij})^2</annotation
 <blockquote>
 <p>不过话又说回来，这阶段测验 1 确实不难。</p>
 </blockquote>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-11-23T03:25:07.000Z" title="2025/11/23 11:25:07">2025年11月23日</time>发表</span><span class="level-item"><time dateTime="2025-11-23T03:41:07.913Z" title="2025/11/23 11:41:07">2025年11月23日</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/ICS/">ICS</a></span><span class="level-item">15 分钟读完 (大约2176个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/">ICS 第5章 优化程序性能</a></p><div class="content"><h3 id="目录"><a class="header-anchor" href="#目录"></a>目录</h3>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-11-23T03:25:07.000Z" title="2025/11/23 11:25:07">2025年11月23日</time>发表</span><span class="level-item"><time dateTime="2025-11-26T02:49:32.120Z" title="2025/11/26 10:49:32">2025年11月26日</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/ICS/">ICS</a></span><span class="level-item">15 分钟读完 (大约2176个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/">ICS 第5章 优化程序性能</a></p><div class="content"><h3 id="目录"><a class="header-anchor" href="#目录"></a>目录</h3>
 <ul>
 <li>前言</li>
 <li>通用的编译优化
@@ -214,8 +214,8 @@ k_{ij} (\left\| \mathbf{x}_j − \mathbf{x}_i \right\| − l_{ij})^2</annotation
 </ul>
 <p>时间复杂度当然重要，但常数也必须纳入考虑。后面涉及的优化大部分都是常数优化。</p>
 <h3 id="通用的编译优化"><a class="header-anchor" href="#通用的编译优化"></a>通用的编译优化</h3>
-<h4 id="代码移动（Code-Motion-Precomputation）"><a class="header-anchor" href="#代码移动（Code-Motion-Precomputation）"></a>代码移动（Code Motion / Precomputation）</h4>
-<p>当某个计算执行多次并产生相同结果时，只实际执行一次，减少重复计算。<br>
+<p><strong>代码移动（Code Motion / Precomputation）</strong><br>
+当某个计算执行多次并产生相同结果时，只实际执行一次，减少重复计算。<br>
 常见的情况是将代码移出循环，比如课件中的例子，<code>n*i</code> 是在循环体之前计算的。</p>
 <img src="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/code_motion.png" class="">
 <p>另外一个例子如下。<br>
@@ -224,8 +224,8 @@ C 代码：</p>
 <p>汇编代码（<code>-O1</code>）：</p>
 <img src="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/code_motion_s.png" class="">
 <p>可以看到，编译出的汇编代码中，循环比较中的 <code>n*m</code> 是在循环体之前计算的。</p>
-<h4 id="强度折减（Strength-Reduction）"><a class="header-anchor" href="#强度折减（Strength-Reduction）"></a>强度折减（Strength Reduction）</h4>
-<p>把代价比较大的操作（如乘法）替换成更简单的操作。</p>
+<p><strong>强度折减（Strength Reduction）</strong><br>
+把代价比较大的操作（如乘法）替换成更简单的操作。</p>
 <img src="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/strength_reduction.png" class="">
 <p>我们可以测试编译器是否会自动进行这项优化。<br>
 C 代码：</p>
@@ -233,8 +233,8 @@ C 代码：</p>
 <p>汇编代码（<code>-O1</code>）：</p>
 <img src="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/strength_reduction_s.png" class="">
 <p>可以看到，编译出的汇编代码中，并没有出现乘法计算，<code>long ni = n * i</code> 的乘法计算被加法代替了。</p>
-<h4 id="共用公共子表达式（Sharing-of-Common-Subexpressions）"><a class="header-anchor" href="#共用公共子表达式（Sharing-of-Common-Subexpressions）"></a>共用公共子表达式（Sharing of Common Subexpressions）</h4>
-<p>复用相似表达式的公共部分。在开启 <code>-O1</code> 及以上级别的优化时，编译器会自动完成这一优化。在课件中的例子中，通过提前计算子表达式 <code>i*n + j</code>，将乘法次数从 3 降到了 1。</p>
+<p><strong>共用公共子表达式（Sharing of Common Subexpressions）</strong><br>
+复用相似表达式的公共部分。在开启 <code>-O1</code> 及以上级别的优化时，编译器会自动完成这一优化。在课件中的例子中，通过提前计算子表达式 <code>i*n + j</code>，将乘法次数从 3 降到了 1。</p>
 <img src="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/subexpression.png" class="">
 <p>另外一个例子如下。<br>
 C 代码：</p>
@@ -242,8 +242,8 @@ C 代码：</p>
 <p>汇编代码（<code>-O1</code>）：</p>
 <img src="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/subexpression_s.png" class="">
 <p>可以看到，<code>n*i</code> 作为公共子表达式被复用了。</p>
-<h4 id="一个例子：冒泡排序"><a class="header-anchor" href="#一个例子：冒泡排序"></a>一个例子：冒泡排序</h4>
-<p>以冒泡排序为例，我们可以分析它的优化过程。<br>
+<p><strong>一个例子：冒泡排序</strong><br>
+以冒泡排序为例，我们可以分析它的优化过程。<br>
 这是冒泡排序的 C 代码以及它所对应的细化后的伪代码。</p>
 <img src="/2025/11/23/ICS-%E7%AC%AC5%E7%AB%A0-%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/bubble_1.png" class="">
 <p>可以看到，在地址计算中，存在着很多冗余（Redundancy）。</p>
@@ -270,9 +270,9 @@ C 代码：</p>
 <li>当然，前提是程序符合语言标准。编译优化可能改变未定义行为（Undefined Behavior, UB）的运行结果，如有符号整数溢出、数组越界访问、访问未初始化变量、<code>(x++ * ++x)</code>等。</li>
 </ul>
 <p>当编译器无法保证优化不会改变程序行为时，编译器会采取<strong>保守策略</strong>，往往就是不进行相应的优化。</p>
-<p>以下是两种常见的限制编译优化的因素，函数调用（Procedure Calls）和内存别名（Memory Aliasing）。</p>
-<h4 id="函数调用（Procedure-Calls）"><a class="header-anchor" href="#函数调用（Procedure-Calls）"></a>函数调用（Procedure Calls）</h4>
-<p>以下代码将字符串 <code>s</code> 中的所有大写字母转成小写字母。</p>
+<p>以下是两种常见的限制编译优化的因素，函数调用（Procedure Calls）和内存别名（Memory Aliasing）。<br>
+<strong>函数调用（Procedure Calls）</strong><br>
+以下代码将字符串 <code>s</code> 中的所有大写字母转成小写字母。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 优化前</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">lower</span><span class="params">(<span class="type">char</span> *s)</span> &#123;</span><br><span class="line">    <span class="type">size_t</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(s); i++)</span><br><span class="line">        <span class="keyword">if</span>(s[i] &gt;= <span class="string">&#x27;A&#x27;</span> &amp;&amp; s[i] &lt;= <span class="string">&#x27;Z&#x27;</span>)</span><br><span class="line">            s[i] -= (<span class="string">&#x27;A&#x27;</span> - <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在实际的测试中，它的运行效率非常缓慢——在每轮循环中，都会调用 <code>strlen</code> 函数，这个函数的工作方式是向后遍历整个字符串，直到找到 <code>\0</code> 字符。</p>
 <p>这导致它的时间复杂度变为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，而原本在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> 的时间里即可完成这一任务，只要简单地把 <code>strlen(s)</code> 提前计算好。</p>
@@ -291,8 +291,8 @@ C 代码：</p>
 <ul>
 <li>不过，GCC 只尝试在单个文件中定义的函数的内联，不进行跨文件的内联。</li>
 </ul>
-<h4 id="内存别名（Memory-Aliasing）"><a class="header-anchor" href="#内存别名（Memory-Aliasing）"></a>内存别名（Memory Aliasing）</h4>
-<p>下面的函数对 <code>n×n</code> 矩阵 <code>a</code> 的每一行求和并依次存储到 <code>b</code> 中。（是这样吗？）</p>
+<p><strong>内存别名（Memory Aliasing）</strong><br>
+下面的函数对 <code>n×n</code> 矩阵 <code>a</code> 的每一行求和并依次存储到 <code>b</code> 中。（是这样吗？）</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">sum_rows1</span><span class="params">(<span class="type">double</span> *a, <span class="type">double</span> *b, <span class="type">long</span> n)</span> &#123;</span><br><span class="line">    <span class="type">long</span> i, j;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        b[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">            b[i] += a[i*n + j];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>编译出的汇编代码如下。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># sum_rows1 inner loop</span><br><span class="line">.L4:</span><br><span class="line">    movsd (%rsi,%rax,8), %xmm0  # FP load</span><br><span class="line">    addsd (%rdi), %xmm0         # FP add</span><br><span class="line">    movsd %xmm0, (%rsi,%rax,8)  # FP store</span><br><span class="line">    addq  $8, %rdi</span><br><span class="line">    cmpq  %rcx, %rdi</span><br><span class="line">    jne   .L4</span><br></pre></td></tr></table></figure>
@@ -348,8 +348,106 @@ C 代码：</p>
 <h3 id="Day-8-茶卡镇-刚察县"><a class="header-anchor" href="#Day-8-茶卡镇-刚察县"></a>Day 8 茶卡镇-刚察县</h3>
 <h3 id="Day-9-刚察县-多巴镇"><a class="header-anchor" href="#Day-9-刚察县-多巴镇"></a>Day 9 刚察县-多巴镇</h3>
 <h3 id="结算画面"><a class="header-anchor" href="#结算画面"></a>结算画面</h3>
-<img src="/2025/11/23/%E6%9A%91%E6%9C%9FDLC%E8%AE%B0%E5%BF%86/%E8%BF%90%E5%8A%A8%E8%AE%B0%E5%BD%95.jpg" class=""></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-11-23T03:13:13.000Z" title="2025/11/23 11:13:13">2025年11月23日</time>发表</span><span class="level-item"><time dateTime="2025-11-23T03:15:13.209Z" title="2025/11/23 11:15:13">2025年11月23日</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/ICS/">ICS</a></span><span class="level-item">几秒读完 (大约12个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">ICS 第9章 虚拟内存</a></p><div class="content"><p>怎么又要回课了。<br>
-<em>此坑待填</em></p>
+<img src="/2025/11/23/%E6%9A%91%E6%9C%9FDLC%E8%AE%B0%E5%BF%86/%E8%BF%90%E5%8A%A8%E8%AE%B0%E5%BD%95.jpg" class=""></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-11-23T03:13:13.000Z" title="2025/11/23 11:13:13">2025年11月23日</time>发表</span><span class="level-item"><time dateTime="2025-11-26T02:57:02.664Z" title="2025/11/26 10:57:02">2025年11月26日</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/ICS/">ICS</a></span><span class="level-item">14 分钟读完 (大约2064个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">ICS 第9章 虚拟内存</a></p><div class="content"><p><s>怎么又要回课了。</s></p>
+<h3 id="前言"><a class="header-anchor" href="#前言"></a>前言</h3>
+<ul>
+<li>为什么我们需要虚拟内存？<br>
+<strong>虚拟内存</strong>（Virtual Memory，<strong>VM</strong>）为每个进程提供了一个大的、一致的和私有的地址空间。
+<ul>
+<li>大：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn></mrow><annotation encoding="application/x-tex">32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">2</span></span></span></span> 位地址可以表示 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>=</mo><mn>4</mn><mi mathvariant="normal">G</mi></mrow><annotation encoding="application/x-tex">2^{32}=4\mathrm{G}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord"><span class="mord mathrm">G</span></span></span></span></span> 个字节，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>64</mn></mrow><annotation encoding="application/x-tex">64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span></span></span></span> 位地址可以表示 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>64</mn></msup><mo>=</mo><mn>16384</mn><mi mathvariant="normal">P</mi></mrow><annotation encoding="application/x-tex">2^{64}=16384\mathrm{P}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">4</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mord">3</span><span class="mord">8</span><span class="mord">4</span><span class="mord"><span class="mord mathrm">P</span></span></span></span></span> 个字节。按照当前主流的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn><mrow><mi mathvariant="normal">G</mi><mi mathvariant="normal">B</mi></mrow></mrow><annotation encoding="application/x-tex">32\mathrm{GB}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">2</span><span class="mord"><span class="mord mathrm">G</span><span class="mord mathrm">B</span></span></span></span></span> 的内存条算，需要插 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>29</mn></msup><mo>=</mo><mn>512</mn><mi mathvariant="normal">M</mi></mrow><annotation encoding="application/x-tex">2^{29}=512\mathrm{M}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">9</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord">1</span><span class="mord">2</span><span class="mord"><span class="mord mathrm">M</span></span></span></span></span> 根内存条才能满足 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>64</mn></mrow><annotation encoding="application/x-tex">64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span></span></span></span> 位地址的最大寻址空间，这显然是无法承受的。</li>
+<li>一致：无论物理内存的实际布局如何（可能非常碎片化），每个进程都认为自己拥有一个连续的线性地址空间。</li>
+<li>私有：一个进程无法读写另一个进程的私有内存数据，从而防止了进程间的相互干扰，实现了地址空间的隔离和保护。</li>
+</ul>
+</li>
+</ul>
+<h3 id="物理寻址和虚拟寻址"><a class="header-anchor" href="#物理寻址和虚拟寻址"></a>物理寻址和虚拟寻址</h3>
+<p><strong>物理寻址</strong><br>
+主存被组织成一个由 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> 个连续的字节单元组成的数组，每个字节都有一个唯一的<strong>物理地址</strong>（Physical Address，<strong>PA</strong>）。<br>
+CPU 访问内存的最自然的方式就是使用物理地址，这种方式被称为<strong>物理寻址</strong>。</p>
+<img src="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/physical_addressing.png" class="">
+<p>早期的 PC 使用物理寻址，而且数字信号处理器、嵌入式微控制器（在汽车、电梯和数码相框等设备中使用）以及 Cray 超级计算机这样的系统仍在继续使用物理寻址。</p>
+<p><strong>虚拟寻址</strong><br>
+CPU 通过生成一个<strong>虚拟地址</strong>（Virtual Address，<strong>VA</strong>）来访问主存，在访存时先把这个虚拟地址转换成适当的物理地址，即<strong>地址翻译</strong>。<br>
+CPU 上的<strong>内存管理单元</strong>（Memory Management Unit，<strong>MMU</strong>）利用存放在主存中的页表来动态翻译虚拟地址，该表的内容由操作系统管理。</p>
+<img src="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/virtual_addressing.png" class="">
+<p><strong>* ARM 体系结构的主要产品线</strong></p>
+<table>
+<thead>
+<tr>
+<th>产品线</th>
+<th>虚拟存储</th>
+<th>主要应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“应用”配置：Cortex-A 系列</td>
+<td>支持</td>
+<td><strong>高性能计算、通用操作系统</strong>：智能手机、平板电脑、服务器、车载信息娱乐系统（IVI）、高级辅助驾驶系统（ADAS）等</td>
+</tr>
+<tr>
+<td>“嵌入式”配置：Cortex-R 系列</td>
+<td>不一定</td>
+<td><strong>实时、安全关键系统</strong>：汽车动力系统、制动系统、工业控制、硬盘控制器等</td>
+</tr>
+<tr>
+<td>“微处理器”配置：Cortex-M 系列</td>
+<td>不支持</td>
+<td><strong>微控制器、深度嵌入式设备</strong>：物联网（IoT）、传感器、简单控制、基础外设管理等</td>
+</tr>
+</tbody>
+</table>
+<h3 id="地址空间"><a class="header-anchor" href="#地址空间"></a>地址空间</h3>
+<p>地址空间是一个非负整数地址的有序集合。我们总是假设使用的是<strong>线性地址空间</strong>，即地址空间中的整数连续。<br>
+CPU 从一个有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">N=2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span> 个地址的<strong>虚拟地址空间</strong>中生成虚拟地址：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">{</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{0,1,2,\dots,N-1\}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">}</span></span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 位地址空间即包含 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span> 个地址的虚拟空间。<br>
+<strong>物理地址空间</strong>对应于物理内存的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> 个字节：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">{</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mi>M</mi><mo>−</mo><mn>1</mn><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{0,1,2,\dots,M-1\}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">}</span></span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> 不要求是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 的幂，但为了简化讨论，我们假设 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><msup><mn>2</mn><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">M=2^m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span></span></span></span></span></span></span></span>。</p>
+<h3 id="虚拟内存作为缓存的工具"><a class="header-anchor" href="#虚拟内存作为缓存的工具"></a>虚拟内存作为缓存的工具</h3>
+<p><strong>虚拟页和物理页</strong><br>
+VM 系统将虚拟内存分割为大小固定的块，称为<strong>虚拟页</strong>（Virtual Page，<strong>VP</strong>），每个虚拟页的大小为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><msup><mn>2</mn><mi>p</mi></msup></mrow><annotation encoding="application/x-tex">P=2^p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span></span></span></span></span></span></span></span> 字节。<br>
+类似地，物理内存被分割为<strong>物理页</strong>（Physical Page，<strong>PP</strong>），大小也为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span> 字节。<br>
+在任意时刻，虚拟页的集合都被分为三个不相交的子集：</p>
+<ul>
+<li>未分配的（Unallocated）：VM 系统还未分配（创建）的页，不占用任何磁盘空间。</li>
+<li>缓存的（Cached）：当前已缓存在物理内存中的已分配页。</li>
+<li>未缓存的（Uncached）：未缓存在物理内存中的已分配页。</li>
+</ul>
+<img src="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/pages.png" class="">
+<p><strong>页表</strong><br>
+VM 系统必须有某种方法来判定一个虚拟页是否缓存在主存中的某个地方。如果是，VM 系统还必须确定这个虚拟页存放在哪个物理页中。如果否，VM 系统必须确定这个虚拟页存放在磁盘的哪个位置，并在物理内存中选择一个页替换。<br>
+操作系统软件、MMU 中的地址翻译硬件和存放在物理内存中的<strong>页表</strong>共同实现这一功能。页表将虚拟页映射到物理页。每次地址翻译硬件将一个虚拟地址转换为物理地址时，都会读取页表。操作系统负责维护页表的内容，以及在磁盘和物理内存之间来回传送页。<br>
+页表是一个<strong>页表条目</strong>（Page Table Entry，<strong>PTE</strong>）的数组。每个 PTE 由一个<strong>有效位</strong>和一个 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 位<strong>地址字段</strong>组成。有效位表明了该虚拟页是否被缓存在物理内存中：</p>
+<ul>
+<li>如果设置了有效位，那么地址字段就表示物理内存中相应物理页的起始位置。</li>
+<li>如果没有设置有效位：
+<ul>
+<li>如果虚拟页还未分配，那么地址字段为一个空地址。</li>
+<li>如果虚拟页已分配，那么地址字段就指向该虚拟页在磁盘上的起始位置。</li>
+</ul>
+</li>
+</ul>
+<img src="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/page_table.png" class="">
+<p><strong>页命中</strong><br>
+CPU 尝试访问虚拟内存中的一个已缓存在物理内存中的字。它使用 PTE 中的物理内存地址，构造出这个字的物理地址。这种情况被称为<strong>页命中</strong>（Page Hit）。</p>
+<img src="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/page_hit.png" class="">
+<p><strong>缺页</strong><br>
+CPU 尝试访问虚拟内存中的一个未缓存在物理内存中的字。这种情况被称为<strong>缺页</strong>（Page Fault）。地址翻译硬件检测到缺页，触发一个<strong>缺页异常</strong>。<br>
+缺页异常调用内核中的缺页异常处理程序，该程序会选择一个物理内存中的牺牲页（如果牺牲页已经被修改了，那么内核会先将它复制回磁盘），修改牺牲页的 PTE，并将要访问的虚拟页从磁盘复制到物理内存，更新要访问的虚拟页的 PTE。当异常处理程序返回时，它会重新启动导致缺页的指令，此时该指令就会得到一个页命中。</p>
+<img src="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/page_fault.png" class="">
+<img src="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/exception.png" class="">
+<p>一直等待，直到不命中发生，才把页面换入虚拟内存，这种策略被称为<strong>按需页面调度</strong>（Demand Paging）。这种 Lazy 的策略在计算机中被广泛使用。</p>
+<p><strong>新分配页</strong><br>
+当操作系统分配一个新的虚拟内存页时，在磁盘上创建空间并更新对应的 PTE。随后要访问这个虚拟内存页时，会触发一个缺页异常，从而把它缓存到物理内存。</p>
+<img src="/2025/11/23/ICS-%E7%AC%AC9%E7%AB%A0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/allocate_page.png" class="">
+<p><strong>虚拟内存中的局部性</strong><br>
+VM 系统看起来效率很低，但因为<strong>局部性</strong>的存在，虚拟内存实际上工作得相当好。<br>
+局部性原则保证，在任意时刻，程序将趋向于在一个较小的<strong>活动页面</strong>集合上工作，这个集合叫做<strong>工作集</strong>或<strong>常驻集合</strong>。在初始开销（冷不命中）之后，对这个工作集得引用将导致命中，不会产生额外的磁盘访问。<br>
+只要我们的程序有好的时间局部性，VM 系统就能工作得相当好。但如果工作集的大小超出了物理内存的大小，就会产生<strong>抖动</strong>，此时页面将不断地换进换出，严重影响效率。</p>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-11-22T15:18:53.000Z" title="2025/11/22 23:18:53">2025年11月22日</time>发表</span><span class="level-item"><time dateTime="2025-11-23T03:08:27.368Z" title="2025/11/23 11:08:27">2025年11月23日</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%9C%80%E5%88%9D%E7%9A%84%E6%9C%80%E5%88%9D/">最初的最初</a></span><span class="level-item">几秒读完 (大约16个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/11/22/%E5%85%B3%E4%BA%8E%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2/">关于这个博客</a></p><div class="content"><p>随缘更，说不定以后会写点东西呢。</p>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-11-22T11:01:57.000Z" title="2025/11/22 19:01:57">2025年11月22日</time>发表</span><span class="level-item"><time dateTime="2025-11-23T04:36:01.637Z" title="2025/11/23 12:36:01">2025年11月23日</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%9C%80%E5%88%9D%E7%9A%84%E6%9C%80%E5%88%9D/">最初的最初</a></span><span class="level-item">几秒读完 (大约50个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/11/22/%E5%85%B3%E4%BA%8E%E6%88%91/">关于我</a></p><div class="content"><p><s>暂时不能给你明确的答复</s><br>
 我是 lowAltitudeFlyer（低空飞行），来自北京大学信息科学技术学院智班。<br>
